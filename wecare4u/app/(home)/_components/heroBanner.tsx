@@ -1,7 +1,7 @@
 import Image from "next/image";
 import heroImage from "@/public/images/hero-banner.jpg";
 
-export default function heroBanner() {
+export const HeroBanner = () => {
     return ( 
         <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 h-screen text-white overflow-hidden">
           <div className="absolute inset-0">
@@ -25,12 +25,12 @@ export default function heroBanner() {
               him for his deed"
             </div>
             <a
-              href="#"
-              className="bg-green-500 text-gray-900 hover:bg-green-400 py-2 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
+              href="/donate"
+              className="bg-green-700 text-white-900 hover:bg-green-800 py-2 px-6 rounded-full text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg"
             >
               Donate Now
             </a>
           </div>
         </div>
       );
-}
+};

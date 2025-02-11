@@ -1,4 +1,5 @@
 import { Footer } from "./_components/footer";
+import { Navbar } from "./_components/navbar";
 
 const mainHome = ({
     children
@@ -7,7 +8,8 @@ const mainHome = ({
 }) => {
     return (
         <div className="h-full bg-slate-100">
-            <main className="pt-5 pb-5 bg-slate-100">
+            <Navbar/>
+            <main className="pt-14 pb-5 bg-slate-100">
                 {children}
             </main>
             <Footer/>

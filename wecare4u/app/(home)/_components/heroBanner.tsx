@@ -1,7 +1,7 @@
 import Image from "next/image";
 import heroImage from "@/public/images/hero-banner.jpg";
 
-export default function heroBanner() {
+export const HeroBanner = () => {
     return ( 
         <div className="relative bg-gradient-to-r from-purple-600 to-blue-600 h-screen text-white overflow-hidden">
           <div className="absolute inset-0">

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { HeroBanner } from "./_components/heroBanner";
 import ImageSlider from "./_components/slider";
 

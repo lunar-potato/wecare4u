@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface ImageData {
   id: string;
@@ -40,7 +41,7 @@ const Gallery = () => {
       </div>
       {images.map((image) => (
         <div key={image.id} className="overflow-hidden rounded-lg pb-4">
-          <img
+          <Image
             src={image.url}
             alt="Gallery Image"
             className="w-full h-auto rounded-lg shadow-lg"

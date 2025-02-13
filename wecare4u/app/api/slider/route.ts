@@ -31,7 +31,7 @@ export async function GET() {
         images = shuffleArray(images); // Shuffle images before returning
 
         return NextResponse.json(images);
-    } catch (err) {
-        return NextResponse.json({ err: "Failed to fetch images" }, { status: 500 });
+    } catch (error) {
+        return NextResponse.json({ error: "Failed to fetch images" }, { status: 500 });
     }
 }

@@ -21,8 +21,8 @@ export const HeroBanner = () => {
             </h1>
             <div className="text-lg text-gray-300">Proverbs 19:17</div>
             <div className="text-lg text-gray-300 mb-8">
-              "Whoever is generous to the poor lends to the Lord, and He will repay
-              him for his deed"
+            &rdquo;Whoever is generous to the poor lends to the Lord, and He will repay
+              him for his deed&rdquo;
             </div>
             <a
               href="/donate"

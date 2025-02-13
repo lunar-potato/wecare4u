@@ -8,16 +8,19 @@ interface CloudinaryResource {
 
 export async function GET() {
   try {
-    const { resources }: { resources?: CloudinaryResource[] } =
-      await cloudinary.search
-        .expression("folder:wecare4u")
-        .sort_by("public_id", "desc")
-        .max_results(54)
-        .execute();
+    const response = await cloudinary.search
+      .expression("folder:wecare4u")
+      .sort_by("public_id", "desc")
+      .max_results(54)
+      .execute();
 
-    if (!resources || !Array.isArray(resources)) {
-      console.error("Cloudinary API returned an invalid response:", resources);
-      return NextResponse.json([]); // Always return an array
+    console.log("Cloudinary Full Response:", response); // Log response
+
+    const { resources } = response;
+
+    if (!resources || resources.length === 0) {
+      console.warn("No images found in Cloudinary!");
+      return NextResponse.json({ error: "No images found", images: [] });
     }
 
     const images = resources.map((resource) => ({
@@ -27,7 +30,7 @@ export async function GET() {
 
     return NextResponse.json(images);
   } catch (error) {
-    console.error("Error fetching Cloudinary images:", error);
-    return NextResponse.json([]); // Always return an empty array on error
+    console.error("Cloudinary Fetch Error:", error);
+    return NextResponse.json({ error: "Failed to fetch images" });
   }
 }

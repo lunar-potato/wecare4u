@@ -1,29 +1,31 @@
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
 
-interface CloudinaryResource {
-  public_id: string;
-  secure_url: string;
-}
-
 export async function GET() {
   try {
+    console.log("Fetching images from Cloudinary...");
+
     const response = await cloudinary.search
       .expression("folder:wecare4u")
       .sort_by("public_id", "desc")
       .max_results(54)
       .execute();
 
-    console.log("Cloudinary Full Response:", response); // Log response
+    console.log("Cloudinary API Response:", response);
+
+    if (!response || typeof response !== "object") {
+      console.error("Invalid Cloudinary response:", response);
+      return NextResponse.json({ error: "Invalid Cloudinary response" });
+    }
 
     const { resources } = response;
 
-    if (!resources || resources.length === 0) {
-      console.warn("No images found in Cloudinary!");
-      return NextResponse.json({ error: "No images found", images: [] });
+    if (!resources || !Array.isArray(resources)) {
+      console.warn("No images found!");
+      return NextResponse.json({ error: "No images found" });
     }
 
-    const images = resources.map((resource) => ({
+    let images = resources.map((resource) => ({
       id: resource.public_id,
       url: resource.secure_url,
     }));

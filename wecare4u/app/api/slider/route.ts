@@ -6,7 +6,7 @@ interface CloudinaryResource {
   secure_url: string;
 }
 
-// Function to shuffle array
+// Fisher-Yates Shuffle Algorithm to randomize images
 function shuffleArray<T>(array: T[]): T[] {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -17,26 +17,32 @@ function shuffleArray<T>(array: T[]): T[] {
 
 export async function GET() {
   try {
-    console.log("Fetching slider images from Cloudinary...");
+    console.log("API `/api/slider` called");
 
     const response = await cloudinary.search
       .expression("folder:wecare4u")
-      .sort_by("public_id", "desc")
-      .max_results(10) // Try reducing to test API limits
+      .sort_by("public_id", "desc") // Sorting ensures new images appear
+      .max_results(54)
       .execute();
 
-    console.log("Cloudinary Full Response:", response);
+    console.log(
+      "Full Cloudinary Response:",
+      JSON.stringify(response, null, 2)
+    );
 
     if (!response || typeof response !== "object") {
       console.error("Invalid Cloudinary response:", response);
-      return NextResponse.json({ error: "Invalid Cloudinary response" });
+      return NextResponse.json(
+        { error: "Invalid Cloudinary response" },
+        { status: 500 }
+      );
     }
 
     const { resources } = response;
 
     if (!resources || !Array.isArray(resources)) {
-      console.warn("No images found for the slider!");
-      return NextResponse.json({ error: "No images found" });
+      console.warn("No images found in Cloudinary!");
+      return NextResponse.json({ error: "No images found" }, { status: 404 });
     }
 
     let images = resources.map((resource) => ({
@@ -44,11 +50,10 @@ export async function GET() {
       url: resource.secure_url,
     }));
 
-    images = shuffleArray(images);
+    images = shuffleArray(images); // Shuffle before returning
 
     return NextResponse.json(images);
   } catch (error) {
-    console.error("Cloudinary Slider Fetch Error:", error);
-    return NextResponse.json({ error: "Failed to fetch slider images" });
+    console.error("Cloudinary Fetch Error:", error);
   }
 }

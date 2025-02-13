@@ -3,7 +3,7 @@ import cloudinary from "@/lib/cloudinary";
 
 export async function GET() {
   try {
-    console.log("Fetching images from Cloudinary...");
+    console.log("API `/api/slider` called");
 
     const response = await cloudinary.search
       .expression("folder:wecare4u")
@@ -11,21 +11,21 @@ export async function GET() {
       .max_results(54)
       .execute();
 
-    console.log("Cloudinary API Response:", response);
+    console.log("Full Cloudinary Response:", JSON.stringify(response, null, 2));
 
     if (!response || typeof response !== "object") {
       console.error("Invalid Cloudinary response:", response);
-      return NextResponse.json({ error: "Invalid Cloudinary response" });
+      return NextResponse.json({ error: "Invalid Cloudinary response" }, { status: 500 });
     }
 
     const { resources } = response;
 
     if (!resources || !Array.isArray(resources)) {
-      console.warn("No images found!");
-      return NextResponse.json({ error: "No images found" });
+      console.warn("No images found in Cloudinary!");
+      return NextResponse.json({ error: "No images found" }, { status: 404 });
     }
 
-    const images = resources.map((resource) => ({
+    const images = resources.map(resource => ({
       id: resource.public_id,
       url: resource.secure_url,
     }));
@@ -33,6 +33,6 @@ export async function GET() {
     return NextResponse.json(images);
   } catch (error) {
     console.error("Cloudinary Fetch Error:", error);
-    return NextResponse.json({ error: "Failed to fetch images" });
+    return NextResponse.json({ error: "Failed to fetch slider images" }, { status: 500 });
   }
 }

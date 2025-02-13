@@ -20,7 +20,7 @@ export async function GET() {
     console.log("API `/api/slider` called");
 
     const response = await cloudinary.search
-      .expression("folder: wecare4u")
+      .expression("folder:wecare4u")
       .sort_by("public_id", "desc") // Sorting ensures new images appear
       .max_results(54)
       .execute();
@@ -53,7 +53,12 @@ export async function GET() {
     images = shuffleArray(images); // Shuffle before returning
 
     return NextResponse.json(images);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Cloudinary Fetch Error:", error);
-  }
+
+    return NextResponse.json(
+      { error: "Failed to fetch slider images", message: error.message },
+      { status: 500 }
+    );
+}
 }

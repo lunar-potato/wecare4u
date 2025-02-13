@@ -6,7 +6,7 @@ export async function GET() {
     console.log("API `/api/slider` called");
 
     const response = await cloudinary.search
-      .expression("folder: wecare4u")
+      .expression("folder:wecare4u")
       .sort_by("public_id", "desc")
       .max_results(54)
       .execute();
@@ -15,7 +15,10 @@ export async function GET() {
 
     if (!response || typeof response !== "object") {
       console.error("Invalid Cloudinary response:", response);
-      return NextResponse.json({ error: "Invalid Cloudinary response" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Invalid Cloudinary response" },
+        { status: 500 }
+      );
     }
 
     const { resources } = response;
@@ -25,14 +28,18 @@ export async function GET() {
       return NextResponse.json({ error: "No images found" }, { status: 404 });
     }
 
-    const images = resources.map(resource => ({
+    const images = resources.map((resource) => ({
       id: resource.public_id,
       url: resource.secure_url,
     }));
 
     return NextResponse.json(images);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Cloudinary Fetch Error:", error);
-    return NextResponse.json({ error: "Failed to fetch slider images" }, { status: 500 });
+
+    return NextResponse.json(
+      { error: "Failed to fetch slider images", message: error.message },
+      { status: 500 }
+    );
   }
 }

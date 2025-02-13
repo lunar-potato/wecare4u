@@ -36,18 +36,22 @@ const Gallery = () => {
         </h1>
         <p className="max-w-[40ch] text-black/75 sm:max-w-[32ch]">
           First project January 26, 2024 Lorem ipsum odor amet, consectetuer
-          adipiscing elit. 
+          adipiscing elit.
         </p>
       </div>
-      {images.map((image) => (
-        <div key={image.id} className="overflow-hidden rounded-lg pb-4">
-          <Image
-            src={image.url}
-            alt="Gallery Image"
-            className="w-full h-auto rounded-lg shadow-lg"
-          />
-        </div>
-      ))}
+      <div className="flex flex-wrap justify-center gap-4">
+        {images.map((image) => (
+          <div key={image.id} className="flex-1 min-w-[250px] max-w-[400px]">
+            <Image
+              src={image.url}
+              alt="Gallery Image"
+              width={500}
+              height={300}
+              className="rounded-lg shadow-lg w-full h-auto"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

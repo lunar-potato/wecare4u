@@ -15,14 +15,22 @@ const Gallery = () => {
       try {
         const res = await fetch("/api/gallery");
         if (!res.ok) throw new Error("Failed to fetch images");
-        const data: ImageData[] = await res.json();
-        setImages(data);
+        const data = await res.json();
+  
+        if (Array.isArray(data)) {
+          setImages(data);
+        } else {
+          console.error("Fetched data is not an array", data);
+          setImages([]); // Prevent crash by setting an empty array
+        }
       } catch (err) {
         console.error(err);
+        setImages([]);
       }
     }
     fetchImages();
   }, []);
+  
 
   return (
     <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4 px-4">

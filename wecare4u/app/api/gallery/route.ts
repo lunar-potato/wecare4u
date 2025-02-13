@@ -25,7 +25,7 @@ export async function GET() {
       return NextResponse.json({ error: "No images found" });
     }
 
-    let images = resources.map((resource) => ({
+    const images = resources.map((resource) => ({
       id: resource.public_id,
       url: resource.secure_url,
     }));

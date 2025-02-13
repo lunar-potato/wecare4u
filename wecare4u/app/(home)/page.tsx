@@ -4,7 +4,7 @@ import { HeroBanner } from "./_components/heroBanner";
 const mainHome = () => {
     return ( 
         <div>
-            <HeroBanner/>    
+            <HeroBanner/>
         </div>
       );
 };

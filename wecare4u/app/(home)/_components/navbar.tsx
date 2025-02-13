@@ -14,17 +14,17 @@ export const Navbar = () => {
                         </Link>
                     </Button>
                     <Button size="sm" variant="link" asChild>
-                        <Link href="/gallery">
+                        <Link href="/projects">
                         Projects
                         </Link>
                     </Button>
                     <Button size="sm" variant="link" asChild>
-                        <Link href="/gallery">
+                        <Link href="/about">
                         About
                         </Link>
                     </Button>
                     <Button size="sm" variant="primary" asChild>
-                        <Link href="/gallery">
+                        <Link href="/donate">
                         Donate
                         </Link>
                     </Button>

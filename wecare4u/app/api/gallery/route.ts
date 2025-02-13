@@ -11,7 +11,7 @@ export async function GET() {
         const { resources }: { resources:CloudinaryResource[] } = await cloudinary.search
         .expression("folder:wecare4u")
         .sort_by("public_id", "desc")
-        .max_results(20)
+        .max_results(10)
         .execute();
 
         const images = resources.map((resource) => ({

@@ -34,11 +34,15 @@ export async function GET() {
     }));
 
     return NextResponse.json(images);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Cloudinary Fetch Error:", error);
 
+    // Check if error is an instance of Error to safely access .message
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknown error occurred";
+
     return NextResponse.json(
-      { error: "Failed to fetch slider images", message: error.message },
+      { error: "Failed to fetch slider images", message: errorMessage },
       { status: 500 }
     );
   }

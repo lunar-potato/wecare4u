@@ -1,11 +1,6 @@
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
 
-interface CloudinaryResource {
-  public_id: string;
-  secure_url: string;
-}
-
 // Fisher-Yates Shuffle Algorithm to randomize images
 function shuffleArray<T>(array: T[]): T[] {
   for (let i = array.length - 1; i > 0; i--) {
@@ -53,12 +48,16 @@ export async function GET() {
     images = shuffleArray(images); // Shuffle before returning
 
     return NextResponse.json(images);
-  } catch (error: any) {
+  } catch (error: unknown) { // Use `unknown` instead of `any`
     console.error("Cloudinary Fetch Error:", error);
 
+    // Ensure error.message is safely accessed
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknown error occurred";
+
     return NextResponse.json(
-      { error: "Failed to fetch slider images", message: error.message },
+      { error: "Failed to fetch slider images", message: errorMessage },
       { status: 500 }
     );
-}
+  }
 }

@@ -4,14 +4,12 @@ import AboutPage from "./about";
 
 export default function GalleryPage() {
   return (
-    <main className="h-full">
-      <div>
-        <Navbar />
-      </div>
-      <div>
+    <div>
+      <Navbar />
+      <main className="flex flex-col min-h-screen">
         <AboutPage />
-      </div>
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }

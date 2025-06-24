@@ -8,13 +8,13 @@ const AboutPage = () => {
             
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
             <h2 className="text-gray-900 text-3xl md:text-4xl font-bold leading-snug">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            <div className="italic">WE CARE FOR YOU </div>   
+              is an organization which started in June 2020.
             </h2>
             <p className="text-gray-600 text-base md:text-lg leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              This organization seeks to care for the needy specifically orphans and widows... We support these people in the form
+              of items and cash... It's our wish that we put smiles on their faces and also encourage and support them with our
+              prayers as well. 
             </p>
             <Button
               variant="primary"

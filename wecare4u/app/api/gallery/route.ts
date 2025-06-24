@@ -15,11 +15,11 @@ export async function GET() {
   try {
     console.log("API `/api/slider` called");
 
-    // Debug: Log Cloudinary environment variables
+    // Debuging Log Cloudinary environment variables
     console.log("Cloudinary Cloud Name:", process.env.CLOUDINARY_CLOUD_NAME);
     console.log("Cloudinary API Key:", process.env.CLOUDINARY_API_KEY);
 
-    // Check if Cloudinary environment variables exist
+    // Checking if Cloudinary environment variables exist
     if (!process.env.CLOUDINARY_CLOUD_NAME) {
       console.error("CLOUDINARY_CLOUD_NAME is missing!");
       return NextResponse.json(
@@ -28,17 +28,17 @@ export async function GET() {
       );
     }
 
-    // Fetch images from Cloudinary
+    // Fetching images from Cloudinary
     const response: CloudinaryResponse = await cloudinary.search
       .expression("folder:wecare4u")
       .sort_by("public_id", "desc")
       .max_results(54)
       .execute();
 
-    // Log Cloudinary response for debugging
+    // Logging Cloudinary response for debugging
     console.log("Full Cloudinary Response:", JSON.stringify(response, null, 2));
 
-    // Check if the response is valid
+    // Checking if the response is valid
     if (!response || typeof response !== "object") {
       console.error("Invalid Cloudinary response:", response);
       return NextResponse.json(
